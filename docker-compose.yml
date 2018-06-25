@@ -1,0 +1,31 @@
+version: '3'
+services:
+  wallet:
+    image: 'lepetitbloc/shekeld:1.4.0'
+    restart: always
+    ports:
+      - '49472:49472'
+      - '49473:49473'
+    command:
+      - '-rpcuser=shekel-wallet'
+      - '-rpcpassword=qdwvdvvm'
+      - '-server=1'
+      - '-listen=0'
+    volumes:
+      - './wallet/:/home/shekel/'
+  masternode:
+    image: 'lepetitbloc/shekeld:1.4.0'
+    restart: always
+    ports:
+      - '49472:49472'
+      - '49473:49473'
+    command:
+      - '-rpcuser=shekel-mn01'
+      - '-rpcpassword=qdwvdvvm'
+      - '-rpcallowip=::/0'
+      - '-server=0'
+      - '-listen=1'
+      - '-masternode=1'
+      - '-masternodeprivkey=YourMasternodePrivKey'
+    volumes:
+      - './masternode/:/home/shekel/'
